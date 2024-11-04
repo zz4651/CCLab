@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mayday Band Animation</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+  <h1>Mayday Band Rotating Animation</h1>
+  <p>
+    In my project, I utilized a rotating animation created with p5.js to demonstrate the dynamic rotation of the cartoon avatars of the members of the band MAYDAY.
+    This project is a character animation demo based on a sine wave rotation effect and contains five characters: Ashin, Masa, Monster, Ming, and Stone.
+    Each character has a unique look and feel with different colors and images. The rotational motion, driven by sine waves, achieves a rhythmic oscillation effect similar to that of a live concert.
+  </p>
+  <p>
+    Each member uses separate <code>push()</code> and <code>pop()</code> blocks to control their rotation and position. The code applies the rotation with <code>rotate(sin(angle) * 0.5)</code> to give them a dancing animation effect.
+  </p>
+  <p><strong>Explanation of each part:</strong></p>
+  <ul>
+    <li><strong>Global variable angle:</strong> Controls the angle of rotation, which changes slightly randomly as <code>angle += 0.1 + random(-0.05, 0.05)</code> in the <code>draw()</code> function, giving the rotation a natural wiggly effect.</li>
+    <li><strong>Sine wave function <code>sin(angle)</code>:</strong> Achieves a smooth rotation effect, where the rotation angle constantly changes between -0.5 and 0.5, creating a dynamic visual effect of rocking.</li>
+    <li><strong>Randomization <code>random(-0.05, 0.05)</code>:</strong> Makes the character rotate slightly irregularly, adding to the vividness of the animation.</li>
+  </ul>
+  <p>
+    Interestingly, in addition to using <code>rotate(sin(angle) * 0.5);</code> for rotation, you can also use <code>rotate(angle % TWO_PI)</code>. This produces a continuous smooth rotation, rather than a swing. While both methods have their advantages and disadvantages, I believe the sine wave rotation effect is more appropriate for the "Live Nation" theme of this project.
+  </p>
+
+  <div id="sketch-holder"></div>
+
+  <script>
+
+  </script>
+</body>
+</html>

@@ -1,383 +1,424 @@
-let gameStarted = false;
-let fft;
-let fallingCharacters = [];
+let images = []; 
+let positions = [];
 
-let rashi, rmons, rmasa, rming, rston;
+let padding = 15;
+let picSizeX = 100;
+let picSizeY = 87.87;
+let firstXPadding = 70;
+let firstYPadding = 45;
 
-let roashin = 0, romasa = 0, romonster = 0, roming = 0, rostone = 0;
-let rotatespd = 3;
+let picNum = 22;
+let numEachRow = 11;
+
+let assembleDescriptions = ["⬆️","//","🌕","⛰️","/tzi/","☀️","✋","👦","🏺","🌲","/zaŋ/", "👁️","🧎","🍜","🧎","🧠", "🫀","🌧️","🧎","🦶","🚢","?","🔥"]; 
+let levelDescriptions = ["/zaŋ/+🌲", "🦶+🚢", "✋+👁️","🌕","🧎+🔥"];
+let chaDescriptions = ["🛏️","⬅️","👀","🌛","🔥","🤨","● ➡️◯","🌍","⬆️","❄️","👐","👦","👀","⛰️","🌛","⬇️","👦","🤔","🤮","👫"]
+let currentLevel = 0;
+let showCha = false;
+
+let sounds = [];
+let validSounds = [3,6];
+
+let dragging = -1;
+let saveButton; 
+let savedMessage = false;
+
+let BGI; 
+let descriptionAlpha = 0; // 透明度变量
+
+let hoverTimeout; // 用于存储延迟的定时器
+let whichMouseIsOnIt = -1; // 记录悬停的图片索引
+let timeToShowWhenTheMouseOnIt = 500;
+let soundIndex = -1;
+// let aa = -1;
+
 
 function preload() {
-  JL = loadSound('../assets/jl.m4a');
-  LKDQBM = loadSound('../assets/LKDQBM.MP3')
-  GL = loadSound("../assets/gl.m4a")
-  FKSJ = loadSound("../assets/World crazy.m4a")
-}
 
-function mousePressed() {
-  if (!gameStarted) {
-    gameStarted = true;
+  BGI = loadImage('20240330-1122233432.jpg'); // 替换为你的背景图路径
+  
+  images[0] = loadImage("cha/mayan_chinese0.svg");
+  images[1] = loadImage("cha/mayan_chinese1.svg");
+  images[2] = loadImage("cha/mayan_chinese2.svg");
+  images[3] = loadImage("cha/mayan_chinese3.svg");
+  images[4] = loadImage("cha/mayan_chinese4.svg");
+  images[5] = loadImage("cha/mayan_chinese5.svg");
+  images[6] = loadImage("cha/mayan_chinese6.svg");
+  images[7] = loadImage("cha/mayan_chinese7.svg");
+  images[8] = loadImage("cha/mayan_chinese8.svg");
+  images[9] = loadImage("cha/mayan_chinese9.svg");
+  images[10] = loadImage("cha/mayan_chinese10.svg");
+  images[11] = loadImage("cha/mayan_chinese11.svg");
+  images[12] = loadImage("cha/mayan_chinese12.svg");
+  images[13] = loadImage("cha/mayan_chinese13.svg");
+  images[14] = loadImage("cha/mayan_chinese14.svg");
+  images[15] = loadImage("cha/mayan_chinese15.svg");
+  images[16] = loadImage("cha/mayan_chinese16.svg");
+  images[17] = loadImage("cha/mayan_chinese17.svg");
+  images[18] = loadImage("cha/mayan_chinese18.svg");
+  images[19] = loadImage("cha/mayan_chinese19.svg");
+  images[20] = loadImage("cha/mayan_chinese20.svg");
+  images[21] = loadImage("cha/mayan_chinese21.svg");
+  
+  for (let i = 0; i < 19; i++) {
+    //test
   }
   
-  // 检测点击陈信宏区域
-  if (mouseX > 300 && mouseX < 400 && mouseY > 300 && mouseY < 500) {
-    JL.play();
-    roashin=180;
+  function preload() {
+    //test
   }
   
-  // 检测点击蔡昇晏区域
-  if (mouseX > 120 * 2 && mouseX < 40 + 120 * 2  && mouseY > height - 50 - 88 && mouseY < height - 50) {
-    FKSJ.play();
-  }
+  sounds[3] = loadSound('sounds/七里香.mp3');
+  sounds[6] = loadSound('sounds/青花瓷.mp3');
+  //sounds[2] = loadSound("gl.m4a");
+  //sounds[3] = loadSound("World crazy.m4a");
   
-  // 检测点击温尚翊区域
-  if (mouseX > 40 + 120 * 1 && mouseX < 40 + 120 * 1 + 88 && mouseY > height - 50 - 88 && mouseY < height - 50) {
-    LKDQBM.play(); 
-  }
-  
-  // 检测点击刘彦明区域
-  if (mouseX > 40 + 120 * 4 && mouseX < 40 + 120 * 4 + 88 && mouseY > height - 50 - 88 && mouseY < height - 50) {
-    GL.play(); 
-  }
-  
-  // 检测点击石头区域
-  if (mouseX > 40 + 120 * 5 && mouseX < 40 + 120 * 5 + 88 && mouseY > height - 50 - 88 && mouseY < height - 50) {
-    mySoundStone.play(); 
-  }
 }
-
 
 function setup() {
-  let canvas=createCanvas(800, 500);
-  canvas.parent("p5-container")
+  createCanvas(1800, 1000); // 创建画布
+  
+  // 计算图片的矩阵位置（10列2行）
+  for (let i = 0; i < picNum; i++) {
+    let row = Math.floor(i / numEachRow); // 计算当前图片所在的行
+    let col = i % numEachRow; // 计算当前图片所在的列
+    
+    // 计算每张图片的 x 和 y 坐标
+    let x = col * (picSizeX + padding) + firstXPadding; //i % 10 * (picSizeX + padding)
+    let y = row * (picSizeY + padding + 20) + firstYPadding; 
+    
+    positions.push({ x, y });
+  }
 
+  // 创建保存按钮
+  saveButton = createButton('📸');
+  saveButton.size(380, 160); // 设置按钮大小
+  saveButton.style('font-size', '50px'); // 设置字体大小
+  saveButton.style('background-color', '#ddd'); // 设置按钮背景色
+  saveButton.style('border', 'none'); // 去掉边框
+  saveButton.style('border-radius', '10px'); // 圆角按钮
+  saveButton.style('cursor', 'pointer'); // 设置鼠标样式为指针
+  saveButton.position( 120, height + 320);  // 设置按钮位置，避免覆盖图片
+  saveButton.mousePressed(saveImage); // 点击按钮时调用保存函数
 
   
-  rashi = random(1,1.3);
-  rmons = random(1,1.3);
-  rmasa = random(1,1.3);
-  rming = random(1,1.3);
-  rston = random(1,1.3);
   
-  // 初始化FFT
-  fft = new p5.FFT();
+  // 
+  b1 = createButton('⭕️');
+  b1.size(160, 160); // 设置按钮大小
+  b1.style('font-size', '50px'); // 设置字体大小
+  b1.style('background-color', '#ddd'); // 设置按钮背景色
+  b1.style('border', 'none'); // 去掉边框
+  b1.style('border-radius', '10px'); // 圆角按钮
+  b1.style('cursor', 'pointer'); // 设置鼠标样式为指针
+  b1.position( 120, height + 100);  // 设置按钮位置，避免覆盖图片
+  b1.mousePressed(challenge); // 点击按钮时调用保存函数
   
-  // 初始化角色
-  fallingCharacters.push({name: 'Ashin', x: 40+120*3, y: height - 50, size: 88});
-  fallingCharacters.push({name: 'Masa', x: 40+120*2, y: height - 50, size: 88});
-  fallingCharacters.push({name: 'Monster', x: 40+120*1, y: height - 50, size: 88});
-  fallingCharacters.push({name: 'Ming', x: 40+120*4, y: height - 50, size: 88});
-  fallingCharacters.push({name: 'Stone', x: 40+120*5, y: height - 50, size: 88});
+  
+  //
+  confirmButton = createButton('');
+  confirmButton.size(160, 160);
+  confirmButton.style('font-size', '50px');
+  confirmButton.style('background-color', '#ddd');
+  confirmButton.style('border', 'none');
+  confirmButton.style('border-radius', '10px');
+  confirmButton.style('cursor', 'pointer');
+  confirmButton.position(340, height + 100);
+  
+  
+  //
+  confirmButton = createButton('👌');
+  confirmButton.size(160, 160);
+  confirmButton.style('font-size', '50px');
+  confirmButton.style('background-color', '#ddd');
+  confirmButton.style('border', 'none');
+  confirmButton.style('border-radius', '10px');
+  confirmButton.style('cursor', 'pointer');
+  confirmButton.position(340, height + 100);
+  confirmButton.mousePressed(check);
+  confirmButton.hide(); // 初始隐藏
+  
 }
 
 function draw() {
-  background(255);
+  // 显示背景图
+  image(BGI, 0, 0, width, height); // 将背景图缩放到画布大小
+
+  // 显示所有图片
+  for (let i = 0; i < picNum; i++) {
+    if (dragging === i) {
+      // 改变正在拖动的图片的透明度，增加视觉效果
+      tint(255, 150); // 增加透明度
+    } else {
+      noTint(); // 恢复正常显示
+    }
+    image(images[i], positions[i].x, positions[i].y, picSizeX, picSizeY); // 显示每张图片，在這裡改第一列、排位置
+    
+    
+    if (showCha){
+      textSize(100);
+      text(chaDescriptions[currentLevel], width - 300, height - 100);
+    }
+    
+  }
+
+  // 如果保存成功，显示提示消息
+  if (savedMessage) {
+    textSize(100);
+    // fill(240);
+    text('📦', width / 2 - 100, height / 2);
+  }
+
   
-  if (!gameStarted) {
-    textAlign(CENTER, CENTER);
-    textSize(32);
-    fill(0);
-    text(' Welcome to Maydayland!', width / 2, height / 2);
-    return;
+  
+  // 显示文字註釋
+  if (whichMouseIsOnIt !== -1){
+    descriptionAlpha = lerp(descriptionAlpha, 255, 0.1); // 平滑增加透明度
+  } else {
+    descriptionAlpha = lerp(descriptionAlpha, 0, 0.1); // 平滑减少透明度
+  }
+
+  if (descriptionAlpha > 5){
+    //框
+    fill(230, descriptionAlpha);
+    stroke(120, descriptionAlpha);
+    rect(mouseX, mouseY - 50, 200, 90, 20);
+    
+    //字
+    fill(60, descriptionAlpha);
+    textSize(30);
+    text(assembleDescriptions[whichMouseIsOnIt], mouseX + 40, mouseY + 5);
   }
   
-  //旋轉他們
-  if (mouseX > 120*3 && mouseX < 120*3+80){
-  roashin += rotatespd;  
-  }
-  if (mouseX > 120*2 && mouseX < 120*2+80){
-  romasa += rotatespd;  
-  }
-  if (mouseX > 120*1 && mouseX < 120*1+80){
-  romonster += rotatespd;  
-  }
-  if (mouseX > 120*4 && mouseX < 120*4+80){
-  roming += rotatespd;  
-  }
-  if (mouseX > 120*5 && mouseX < 120*5+80){
-  rostone += rotatespd;  
-  }  
-  
-  if (mouseX>0){
-  roashin += rotatespd;  
-  romasa += rotatespd;  
-  romonster += rotatespd;  
-  roming += rotatespd;  
-  rostone += rotatespd;  
-  }  
-  
-  
-  
+}
 
 
-  let spectrum = fft.analyze();
-  // console.log(spectrum);
-
-
-  for (let character of fallingCharacters) {
-    if (character.name === 'Ashin') {
-      Ashin(character.x, height-44-spectrum[400,600]*2*rashi, 88);
-    } else if (character.name === 'Masa') {
-      Masa(character.x, height-44-spectrum[400,600]*2*rmasa, 88);
-    } else if (character.name === 'Monster') {
-      Monster(character.x, height-44-spectrum[400,600]*2*rmons, 88);
-    } else if (character.name === 'Ming') {
-      Ming(character.x, height-44-spectrum[400,600]*2*rming, 88);
-    } else if (character.name === 'Stone') {
-      Stone(character.x, height-44-spectrum[400,600]*2*rston, 88);
+// 鼠标按下时，判断是否点击到了图片
+function mousePressed(){
+  for (let i = 0; i < picNum; i++){
+    let d = dist(mouseX, mouseY, positions[i].x + picSizeX/2, positions[i].y + picSizeY/2); // 计算鼠标和图片中心的距离
+    if (d < 80) { // 如果鼠标点击到了某张图片的范围内，开始拖动该图片
+      dragging = i; // 记录正在拖动的图片索引
+      break; // 找到第一张被点击的图片后，退出循环
+      //dragging = -1; // 停止拖动，重置拖动状态
     }
   }
 }
 
-
-
-
-
+// 鼠标拖动时更新图片的位置
+function mouseDragged() {
   
+  if (dragging !== -1) { // 如果有图片正在拖动
+    positions[dragging].x = mouseX - picSizeX/2; // 更新被拖动图片的 x 位置
+    positions[dragging].y = mouseY - picSizeY/2; // 更新被拖动图片的 y 位置
+  }
+}
+
+// 鼠标松开时停止拖动
+function mouseReleased() {
+  dragging = -1; // 停止拖动，重置拖动状态
+}
 
 
+// 鼠标是否悬停(若是，则启动定时器)
+function mouseMoved() {
+  let found = false;
+  
+  for (let i = 0; i < picNum; i++) {
+    let d = dist(mouseX, mouseY, positions[i].x + picSizeX/2, positions[i].y + picSizeY/2); // 计算鼠标和图片中心的距离
+    
+    if (d < 80) { // 如果鼠标悬停在图片范围内
+      
+      //播放声音
+      if(soundIndex !== -1){//暂停前面声音的如果有在播放的话
+        validSounds.forEach(i => sounds[i].stop());
+      }
+      if (validSounds.includes(i)) {//如果i包含在vs，则
+        soundIndex = i;
+        sounds[soundIndex].play();
+      }
+      
+      //显示注释
+      if (whichMouseIsOnIt !== i) { //三元运算符
+        clearTimeout(hoverTimeout); // 清除上一次的定时器
+        const delay = (whichMouseIsOnIt === -1) ? timeToShowWhenTheMouseOnIt : 0; // 根据条件设置延迟时间
+        hoverTimeout = setTimeout(() => {
+          whichMouseIsOnIt = i; // 设置悬停的图片索引
+        }, delay);
+      }
 
-
-
-
-
-
-function drawSpectrum(spectrum) {
-  noStroke();
-  for (let i = 0; i < 518; i++) {
-    let x = map(i, 0, 518, 0, width);
-    let h = map(spectrum[i], 0, 255, 0, height / 2);
-    fill(255 - i * 255 / 518, 100, i * 255 / spectrum.length);
-    rect(x, height - h, width / 518, h);
+//     if (whichMouseIsOnIt !== i) {
+//       clearTimeout(hoverTimeout); // 清除上一次的定时器
+        
+//       if (whichMouseIsOnIt == -1){
+//           hoverTimeout = setTimeout(() => {
+//           whichMouseIsOnIt = i; // 在定时器中设置悬停的图片索引
+//           }, 1000); // 延迟x秒后显示描述
+//         }
+        
+//       if (whichMouseIsOnIt !== -1){
+//           hoverTimeout = setTimeout(() => {
+//           whichMouseIsOnIt = i; // 在定时器中设置悬停的图片索引
+//           }, 0); // 延迟x秒后显示描述
+//         }
+//      }
+      
+      found = true;
+      break;
+    }
+  }
+  if (!found) { // 如果鼠标没有悬停在任何图片上
+    whichMouseIsOnIt = -1; // 隐藏文字描述
+    clearTimeout(hoverTimeout); // 清除定时器
+    
+    //暂停所有声音
+    validSounds.forEach(i => sounds[i].stop());
+    //sounds[0].stop();
+    //sounds[3].stop();
   }
 }
 
 
-
-
-
-
-
-
-// 绘制陈信宏
-function Ashin(x, y) {
-  push();
-  
-  translate(x, y); // Translate to the character's location
-  rotate(radians(roashin));
- 
-  
-  noStroke();
-  fill('#E878AF');
-  ellipse(0, 0, 88, 88);
-
-
-  fill(255);
-  push();
-  translate(- 10, - 4);
-  rotate(-PI / 2);
-  ellipse(0, 0, 20, 15);
-  pop();
-
-  push();
-  translate(14, - 4);
-  rotate(PI / 32);
-  ellipse(0, 0, 15, 20); 
-  pop();
-
-  fill('#00AEEF');
-  push();
-  translate(- 10, - 4);
-  rotate(-PI / 2);
-  ellipse(0, 0, 15, 12); 
-  pop();
-
-  push();
-  translate(13, - 3);
-  rotate(PI / 32);
-  ellipse(0, 0, 12, 15); 
-  pop();
-
-  // 黑色线条
-  stroke(0);
-  strokeWeight(3.5);
-  noFill();
-  beginShape();
-  vertex(-6, 12);
-  bezierVertex(-5, 14, -2, 14, 0, 13);
-  bezierVertex(1, 12, 2, 11, 4, 12);
-  bezierVertex(6, 12, 8, 13, 9, 14);
-  bezierVertex(11, 15, 14, 14, 15, 13);
-  endShape();
-  
-  pop();
+// 保存当前画布为图片
+function saveImage() {
+  saveCanvas('晚安，地球人...', 'png'); // 保存为 PNG 文件
+  savedMessage = true; // 显示保存成功的提示
+  setTimeout(() => savedMessage = false, 2000); // 2秒后隐藏提示
 }
 
-// 绘制蔡昇晏
-function Masa(x, y) {
-  push();
-  
-  translate(x, y); // Translate to the character's location
-  rotate(radians(romasa));
- 
-  noStroke();
-  fill('#EDC755');
-  ellipse(0, 0, 88, 88); 
+function challenge(){
 
-  fill(255);
-  arc(- 13, - 9, 20, 20, 0, PI, OPEN); 
-  arc(14,- 9, 20, 20, 0, PI, OPEN); 
+  alert(levelDescriptions[currentLevel]);
 
-  fill('#EF4136');
-  arc( - 11,  - 9, 12, 13, 0, PI, OPEN); 
-  arc(13,  - 9, 12, 13, 0, PI, OPEN);
+  showCha = true;
   
-  // 绘制嘴巴
-  fill('#ffffff');
-  noStroke();
-  push();
-  translate( 2, 9);
-  rotate(radians(-10));
-  arc(0, 0, 20, 20, 0, PI, OPEN); 
-  pop();
-  stroke(0);
-  strokeWeight(4.28);
-  line( 8, 12, 3, 13); 
+  confirmButton.show(); // 显示确认按钮
+  //console.log("challengeworked")
   
-  pop();
 }
 
-// 绘制温尚翊
-function Monster(x, y) {
-  push();
+function check(){
+  console.log(currentLevel);
   
-  translate(x, y); // Translate to the character's location
-  rotate(radians(romonster));
- 
-  noStroke();
-  fill('#DE4D3D');
-  ellipse(0, 0, 88, 88); 
-
-  fill(255);
-  push();
-  translate(- 12,  - 3);
-  rotate(-PI / 5.5);
-  ellipse(0, 0, 16, 14); 
-  pop();
-
-  push();
-  translate( 12, - 2);
-  rotate(-PI / 5.5);
-  ellipse(0, 0, 16, 14); 
-  pop();
-
-  fill('#39B04A');
-  push();
-  translate(- 12,  - 3);
-  rotate(-PI / 5.5);
-  ellipse(0, 0, 10, 8);
-  pop();
-
-  push();
-  translate(12, - 1);
-  rotate(-PI / 5.5);
-  ellipse(0, 0, 10, 8); 
-  pop();
-
-  // 嘴
-  stroke(0);
-  strokeWeight(4.28);
-  line(- 7,  17, - 3, 12);
-  line(- 7,  17,  6, 14); 
+  if (currentLevel==0){ //第一关
+    let cha1 = 10;
+    let cha2 = 9;
+    if(positions[cha1].x < positions[cha2].x && areTheyMoved(cha1, cha2) && areTheyConnected(cha1, cha2)){ //通关判断：if (cha1 在 cha2 左边；cha1不在innitial position； cha2 也不在； x轴差值小于100； y也是)
+      alert("✅");
+      console.log("10",currentLevel+1)
+      currentLevel += 1;
+      return;
+    } else {
+      alert("❌");
+      console.log("00",currentLevel+1)
+    }
+  }
   
-  pop();
+  
+  if (currentLevel==1){ //第二关
+    let cha1 = 19;
+    let cha2 = 20;
+    if(positions[cha1].y < positions[cha2].y && areTheyMoved(cha1, cha2) && areTheyConnected(cha1, cha2)){ //通关判断：if (cha1 在 cha2 上边；cha1不在innitial position,x轴有移动过； cha2 也不在； x轴差值小于100； y也是)
+      alert("✅");
+      console.log("10",currentLevel+1)
+      currentLevel += 1;
+      return;
+    } else {
+      alert("❌");
+      console.log("00",currentLevel+1)
+    }
+  }
+  
+  
+  if (currentLevel==2){ //第三关
+    let cha1 = 6;
+    let cha2 = 11;
+    if(positions[cha1].y < positions[cha2].y && areTheyMoved(cha1, cha2) && areTheyConnected(cha1, cha2)){ //通关判断：if (cha1 在 cha2 上边；cha1不在innitial position,x轴有移动过； cha2 也不在； x轴差值小于100； y也是)
+      alert("✅");
+      console.log("103")
+      currentLevel += 1;
+      return;
+    } else {
+      alert("❌");
+      console.log("003")
+    }
+  }
+  
+  
+  if (currentLevel==3){ //第4关
+    let cha1 = 2;
+    //let cha2 = 2;
+    if(areTheyMoved(cha1)){ //通关判断：if (cha1 在 cha2 上边；cha1不在innitial position,x轴有移动过； cha2 也不在； x轴差值小于100； y也是)
+      alert("✅");
+      console.log("104")
+      currentLevel += 1;
+      return;
+    } else {
+      alert("❌");
+      console.log("004")
+    }
+  }
+  
+  
+  
+  if (currentLevel==4){ //第5关
+    let cha1 = 22;
+    let cha2 = 18;
+    if(positions[cha1].y < positions[cha2].y && positions[cha1].x > positions[cha2].x && areTheyMoved(cha1, cha2) && areTheyConnected(cha1, cha2)){ //通关判断：if (cha1 在 cha2 上边；cha1 在 2 的右边；cha1不在innitial position,x轴有移动过； cha2 也不在； x轴差值小于100； y也是)
+      alert("✅");
+      console.log("105")
+      currentLevel += 1;
+      return;
+    } else {
+      alert("❌");
+      console.log("005")
+    }
+  }
+  
+  if (currentLevel==5){ //第6关 still working
+    let cha1 = 100;
+    let cha2 = 100;
+    if(positions[cha1].x < positions[cha2].x && areTheyMoved(cha1, cha2) && areTheyConnected(cha1, cha2)){ //通关判断：if (cha1 在 cha2 左边；cha1不在innitial position； cha2 也不在； x轴差值小于100； y也是)
+      alert("✅");
+      console.log("106")
+      currentLevel += 1;
+      return;
+    } else {
+      alert("❌");
+      console.log("006")
+    }
+  }
+  
+  
+  //第七关
+  
+  
+   if (currentLevel==7){ //第8关 still working
+    let cha1 = 1;
+    let cha2 = 8;
+    if(positions[cha1].x < positions[cha2].x && areTheyMoved(cha1, cha2) && areTheyConnected(cha1, cha2)){ //通关判断：if (cha1 在 cha2 左边；cha1不在innitial position； cha2 也不在； x轴差值小于100； y也是)
+      alert("✅");
+      console.log("10",currentLevel+1)
+      currentLevel += 1;
+      return;
+    } else {
+      alert("❌");
+      console.log("00",currentLevel+1)
+    }
+  }
+  
+  
+  if(currentLevel>20){
+    alert('~~~~~~~!!! 🎉');
+  }
+  
 }
 
-// 绘制刘彦明
-function Ming(x, y) {
-  push();
-  
-  translate(x, y); // Translate to the character's location
-  rotate(radians(roming));
- 
-  strokeWeight(1);
-  fill('#41AEDF');
-  noStroke();
-  ellipse(0, 0, 88, 88);
-  
-  // 白色椭圆
-  fill(255);
-  ellipse(- 5,  - 7, 8.536, 9.196);
-  ellipse( 11,  - 6, 8.246, 9.116);
-  ellipse( 10,  - 6, 5.508, 5.262);
-  ellipse( - 4,  - 7, 5.426, 5.248);
-  
-  //眼珠
-  fill(0); // 黑色
-  ellipse( - 4,  - 7, 4, 4); 
-  ellipse(  10, - 6, 4, 4); 
-  
-  // 黄色眼镜中间
-  fill('#EDC64F');
-  rect(x + 0.249, y - 11.25, 5.162, 3.259);
-  
-
-  fill('#EDC64F');
-  beginShape();
-  vertex( - 4,  - 7.287);
-  vertex( 0.505,  - 7.355);
-  vertex( 2.95,  - 4.689);
-  vertex( - 1.833,  - 2.09);
-  vertex( - 1.833,  - 2.09);
-  endShape(CLOSE);
-  
-
-  noFill();
-  stroke('#EDC64F');
-  strokeWeight(3.5);
-  rect( - 17,  - 16, 18, 18, 5); 
-  rect( + 5, - 16, 18, 18, 5); 
-  
-  // 连接线
-  stroke('#000000');
-  strokeWeight(4.4182);
-  line( 0.695,  6.907,  4.476,  10.351);
-  line( 4.476, 10.351,  8.301,  6.907);
-  
-  pop();
+function areTheyMoved(cha1, cha2) { // 通关条件判断
+  return positions[cha1].x !== cha1 % 10 * (picSizeX + padding) && positions[cha2].x !== cha2 % 10 * (picSizeX + padding);
 }
 
-// 绘制石头
-function Stone(x, y) {
-  push();
-  
-  translate(x, y); // Translate to the character's location
-  rotate(radians(rostone));
- 
-  strokeWeight(1);
-  fill('#4bb056');
-  noStroke();
-  ellipse(0, 0, 88, 88);
-  
-  //眼
-  fill(255);
-  ellipse( - 6,  - 7.122, 11.2, 11.2);
-  ellipse( 4.8,  - 9, 11.2, 11.2);
-  fill('#eca64a');
-  ellipse( - 8.6,  - 9, 5, 5.7);
-  ellipse(  2, - 10.8, 5, 5.7);
-  
-  //嘴
-  stroke('#000000');
-  strokeWeight(4.1652);
-  noFill();
-  beginShape();
-  vertex( - 11.468,  + 7.065);
-  vertex( - 0.571,  + 4.478); 
-  vertex( + 5.202,  + 6.365); 
-  vertex( + 8.854,  + 2.193); 
-  vertex( + 18.291,  - 0.046); 
-  endShape();
-  
-  pop();
+function areTheyConnected(cha1, cha2) {
+  //return abs(positions[cha1].x - positions[cha2].x) < 100 && abs(positions[cha1].y - positions[cha2].y) < 100;
+  return dist(positions[cha1].x, positions[cha1].y, positions[cha2].x, positions[cha2].y) < 141;
 }

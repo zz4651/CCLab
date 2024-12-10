@@ -38,7 +38,7 @@ function preload() {
   BGI = loadImage('assets/20240330-1122233432.jpg'); // 替换为你的背景图路径
   
   images[0] = loadImage("assets/cha/mayan_chinese0.svg");
-  images[1] = loadImage("cha/mayan_chinese1.svg");
+  images[1] = loadImage("cha/mayan_chinese100000.svg");
   images[2] = loadImage("cha/mayan_chinese2.svg");
   images[3] = loadImage("cha/mayan_chinese3.svg");
   images[4] = loadImage("cha/mayan_chinese4.svg");

@@ -73,8 +73,8 @@ function preload() {
   
   sounds[3] = loadSound('assets/sounds/⛰️.mp3');
   sounds[6] = loadSound('assets/sounds/✋.mp3');
-  //sounds[22] = loadSound("assets/sounds/🔥.mp3");
-  //sounds[17] = loadSound("assets/sounds/🌧️.mp3");
+  sounds[22] = loadSound("assets/sounds/🔥.mp3");
+  sounds[17] = loadSound("assets/sounds/🌧️.mp3");
   
 }
 

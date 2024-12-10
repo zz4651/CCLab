@@ -80,6 +80,26 @@
 	    color: inherit;
 	    text-decoration: none; 
 	}
+
+	.work-images {
+	    display: flex;  /* 使用 flexbox 布局来并排显示图片 */
+	    justify-content: center;  /* 居中对齐图片 */
+	    gap: 20px;  /* 图片之间的间距 */
+	}
+	
+	.work-images img {
+	    width: 800px;  /* 限制图片的宽度为 800px */
+	    height: auto; 
+	    max-width: 100%; 
+	}
+	
+	.work-images p {
+		font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+	    text-align: center;
+	    font-size: 14px; 
+	    color: #333;  
+	    margin-top: 10px;
+	}
     </style>
     <script src="library/p5.js"></script>
     <script src="library/p5.sound.js"></script>

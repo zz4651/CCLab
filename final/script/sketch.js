@@ -7,8 +7,8 @@ let picSizeY = 87.87;
 let firstXPadding = 70;
 let firstYPadding = 45;
 
-let picNum = 22;
-let numEachRow = 11;
+let picNum = 23;
+let numEachRow = 12;
 
 let assembleDescriptions = ["⬆️","//","🌕","⛰️","/tzi/","☀️","✋","👦","🏺","🌲","/zaŋ/", "👁️","🧎","🍜","🧎","🧠", "🫀","🌧️","🧎","🦶","🚢","?","🔥"]; 
 let levelDescriptions = ["/zaŋ/+🌲", "🦶+🚢", "✋+👁️","🌕","🧎+🔥"];
@@ -31,6 +31,8 @@ let whichMouseIsOnIt = -1; // 记录悬停的图片索引
 let timeToShowWhenTheMouseOnIt = 500;
 let soundIndex = -1;
 // let aa = -1;
+
+let scale = 1.1;
 
 
 function preload() {
@@ -59,6 +61,7 @@ function preload() {
   images[19] = loadImage("assets/cha/mayan_chinese19.svg");
   images[20] = loadImage("assets/cha/mayan_chinese20.svg");
   images[21] = loadImage("assets/cha/mayan_chinese21.svg");
+  images[22] = loadImage("assets/cha/mayan_chinese22.svg");
   
   for (let i = 0; i < 19; i++) {
     //test
@@ -70,13 +73,13 @@ function preload() {
   
   sounds[3] = loadSound('assets/sounds/⛰️.mp3');
   sounds[6] = loadSound('assets/sounds/✋.mp3');
-  //sounds[2] = loadSound("gl.m4a");
+  //sounds[22] = loadSound("");
   //sounds[3] = loadSound("World crazy.m4a");
   
 }
 
 function setup() {
-  createCanvas(1800, 1000); // 创建画布
+  createCanvas(1800*scale, 1000*scale); // 创建画布
   
   // 计算图片的矩阵位置（10列2行）
   for (let i = 0; i < picNum; i++) {

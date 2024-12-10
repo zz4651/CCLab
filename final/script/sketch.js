@@ -24,10 +24,10 @@ let saveButton;
 let savedMessage = false;
 
 let BGI; 
-let descriptionAlpha = 0; // 透明度变量
+let descriptionAlpha = 0; // 透明度
 
-let hoverTimeout; // 用于存储延迟的定时器
-let whichMouseIsOnIt = -1; // 记录悬停的图片索引
+let hoverTimeout; // 定时器
+let whichMouseIsOnIt = -1; // 悬停图片索引
 let timeToShowWhenTheMouseOnIt = 500;
 let soundIndex = -1;
 // let aa = -1;
@@ -37,7 +37,7 @@ let scale = 1.1;
 
 function preload() {
 
-  BGI = loadImage('assets/20240330-1122233432.jpg'); // 替换为你的背景图路径
+  BGI = loadImage('assets/20240330-1122233432.jpg'); 
   
   images[0] = loadImage("assets/cha/mayan_chinese0.svg");
   images[1] = loadImage("assets/cha/mayan_chinese1.svg");
@@ -73,8 +73,8 @@ function preload() {
   
   sounds[3] = loadSound('assets/sounds/⛰️.mp3');
   sounds[6] = loadSound('assets/sounds/✋.mp3');
-  //sounds[22] = loadSound("");
-  //sounds[3] = loadSound("World crazy.m4a");
+  //sounds[22] = loadSound("assets/sounds/🔥.mp3");
+  //sounds[17] = loadSound("assets/sounds/🌧️.mp3");
   
 }
 
@@ -139,7 +139,7 @@ function setup() {
   confirmButton.style('cursor', 'pointer');
   confirmButton.position(340, height + 300);
   confirmButton.mousePressed(check);
-  confirmButton.hide(); // 初始隐藏
+  confirmButton.hide(); 
   
 }
 
@@ -233,7 +233,7 @@ function mouseMoved() {
     if (d < 80) { // 如果鼠标悬停在图片范围内
       
       //播放声音
-      if(soundIndex !== -1){//暂停前面声音的如果有在播放的话
+      if(soundIndex !== -1){//如果有在播放的话，暂停前面的声音
         validSounds.forEach(i => sounds[i].stop());
       }
       if (validSounds.includes(i)) {//如果i包含在vs，则
@@ -242,7 +242,7 @@ function mouseMoved() {
       }
       
       //显示注释
-      if (whichMouseIsOnIt !== i) { //三元运算符
+      if (whichMouseIsOnIt !== i) { //三元运算符？？？
         clearTimeout(hoverTimeout); // 清除上一次的定时器
         const delay = (whichMouseIsOnIt === -1) ? timeToShowWhenTheMouseOnIt : 0; // 根据条件设置延迟时间
         hoverTimeout = setTimeout(() => {
@@ -251,18 +251,18 @@ function mouseMoved() {
       }
 
 //     if (whichMouseIsOnIt !== i) {
-//       clearTimeout(hoverTimeout); // 清除上一次的定时器
+//       clearTimeout(hoverTimeout); 
         
 //       if (whichMouseIsOnIt == -1){
 //           hoverTimeout = setTimeout(() => {
 //           whichMouseIsOnIt = i; // 在定时器中设置悬停的图片索引
-//           }, 1000); // 延迟x秒后显示描述
+//           }, 1000); // 延迟x秒
 //         }
         
 //       if (whichMouseIsOnIt !== -1){
 //           hoverTimeout = setTimeout(() => {
 //           whichMouseIsOnIt = i; // 在定时器中设置悬停的图片索引
-//           }, 0); // 延迟x秒后显示描述
+//           }, 0); // 延迟x秒
 //         }
 //      }
       
@@ -303,7 +303,7 @@ function challenge(){
 function check(){
   console.log(currentLevel);
   
-  if (currentLevel==0){ //第一关
+  if (currentLevel==0){ //第一关床
     let cha1 = 10;
     let cha2 = 9;
     if(positions[cha1].x < positions[cha2].x && areTheyMoved(cha1, cha2) && areTheyConnected(cha1, cha2)){ //通关判断：if (cha1 在 cha2 左边；cha1不在innitial position； cha2 也不在； x轴差值小于100； y也是)
@@ -348,9 +348,9 @@ function check(){
   }
   
   
-  if (currentLevel==3){ //第4关
+  if (currentLevel==3){ //第4关月
     let cha1 = 2;
-    //let cha2 = 2;
+    let cha2 = 2;
     if(areTheyMoved(cha1)){ //通关判断：if (cha1 在 cha2 上边；cha1不在innitial position,x轴有移动过； cha2 也不在； x轴差值小于100； y也是)
       alert("✅");
       console.log("104")
@@ -364,7 +364,7 @@ function check(){
   
   
   
-  if (currentLevel==4){ //第5关
+  if (currentLevel==4){ //第5关光
     let cha1 = 22;
     let cha2 = 18;
     if(positions[cha1].y < positions[cha2].y && positions[cha1].x > positions[cha2].x && areTheyMoved(cha1, cha2) && areTheyConnected(cha1, cha2)){ //通关判断：if (cha1 在 cha2 上边；cha1 在 2 的右边；cha1不在innitial position,x轴有移动过； cha2 也不在； x轴差值小于100； y也是)
@@ -378,7 +378,7 @@ function check(){
     }
   }
   
-  if (currentLevel==5){ //第6关 still working
+  if (currentLevel==5){ //第6关 still working 疑
     let cha1 = 100;
     let cha2 = 100;
     if(positions[cha1].x < positions[cha2].x && areTheyMoved(cha1, cha2) && areTheyConnected(cha1, cha2)){ //通关判断：if (cha1 在 cha2 左边；cha1不在innitial position； cha2 也不在； x轴差值小于100； y也是)
@@ -393,10 +393,10 @@ function check(){
   }
   
   
-  //第七关
+  //第七关 是
   
   
-   if (currentLevel==7){ //第8关 still working
+   if (currentLevel==7){ //第8关 still working 地
     let cha1 = 1;
     let cha2 = 8;
     if(positions[cha1].x < positions[cha2].x && areTheyMoved(cha1, cha2) && areTheyConnected(cha1, cha2)){ //通关判断：if (cha1 在 cha2 左边；cha1不在innitial position； cha2 也不在； x轴差值小于100； y也是)
@@ -411,7 +411,38 @@ function check(){
   }
   
   
-  if(currentLevel>20){
+    if (currentLevel==8){ //第9关上
+    let cha1 = 0;
+    let cha2 = 0;
+    if(areTheyMoved(cha1)){ //通关判断：if (cha1 在 cha2 上边；cha1不在innitial position,x轴有移动过； cha2 也不在； x轴差值小于100； y也是)
+      alert("✅");
+      console.log("10",currentLevel+1)
+      currentLevel += 1;
+      return;
+    } else {
+      alert("❌");
+      console.log("00",currentLevel+1)
+    }
+  }
+  
+  
+  
+    if (currentLevel==9){ //第10关霜
+    let cha1 = 17;
+    let cha2 = 0;
+    if(areTheyMoved(cha1)){ //通关判断：if (cha1 在 cha2 上边；cha1不在innitial position,x轴有移动过； cha2 也不在； x轴差值小于100； y也是)
+      alert("✅");
+      console.log("10",currentLevel+1)
+      currentLevel += 1;
+      return;
+    } else {
+      alert("❌");
+      console.log("00",currentLevel+1)
+    }
+  }
+  
+  
+  if(currentLevel>4){
     alert('~~~~~~~!!! 🎉');
   }
   

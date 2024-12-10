@@ -38,27 +38,27 @@ function preload() {
   BGI = loadImage('assets/20240330-1122233432.jpg'); // 替换为你的背景图路径
   
   images[0] = loadImage("assets/cha/mayan_chinese0.svg");
-  images[1] = loadImage("cha/mayan_chinese1.svg");
-  images[2] = loadImage("cha/mayan_chinese2.svg");
-  images[3] = loadImage("cha/mayan_chinese3.svg");
-  images[4] = loadImage("cha/mayan_chinese4.svg");
-  images[5] = loadImage("cha/mayan_chinese5.svg");
-  images[6] = loadImage("cha/mayan_chinese6.svg");
-  images[7] = loadImage("cha/mayan_chinese7.svg");
-  images[8] = loadImage("cha/mayan_chinese8.svg");
-  images[9] = loadImage("cha/mayan_chinese9.svg");
-  images[10] = loadImage("cha/mayan_chinese10.svg");
-  images[11] = loadImage("cha/mayan_chinese11.svg");
-  images[12] = loadImage("cha/mayan_chinese12.svg");
-  images[13] = loadImage("cha/mayan_chinese13.svg");
-  images[14] = loadImage("cha/mayan_chinese14.svg");
-  images[15] = loadImage("cha/mayan_chinese15.svg");
-  images[16] = loadImage("cha/mayan_chinese16.svg");
-  images[17] = loadImage("cha/mayan_chinese17.svg");
-  images[18] = loadImage("cha/mayan_chinese18.svg");
-  images[19] = loadImage("cha/mayan_chinese19.svg");
-  images[20] = loadImage("cha/mayan_chinese20.svg");
-  images[21] = loadImage("cha/mayan_chinese21.svg");
+  images[1] = loadImage("assets/cha/mayan_chinese1.svg");
+  images[2] = loadImage("assets/cha/mayan_chinese2.svg");
+  images[3] = loadImage("assets/cha/mayan_chinese3.svg");
+  images[4] = loadImage("assets/cha/mayan_chinese4.svg");
+  images[5] = loadImage("assets/cha/mayan_chinese5.svg");
+  images[6] = loadImage("assets/cha/mayan_chinese6.svg");
+  images[7] = loadImage("assets/cha/mayan_chinese7.svg");
+  images[8] = loadImage("assets/cha/mayan_chinese8.svg");
+  images[9] = loadImage("assets/cha/mayan_chinese9.svg");
+  images[10] = loadImage("assets/cha/mayan_chinese10.svg");
+  images[11] = loadImage("assets/cha/mayan_chinese11.svg");
+  images[12] = loadImage("assets/cha/mayan_chinese12.svg");
+  images[13] = loadImage("assets/cha/mayan_chinese13.svg");
+  images[14] = loadImage("assets/cha/mayan_chinese14.svg");
+  images[15] = loadImage("assets/cha/mayan_chinese15.svg");
+  images[16] = loadImage("assets/cha/mayan_chinese16.svg");
+  images[17] = loadImage("assets/cha/mayan_chinese17.svg");
+  images[18] = loadImage("assets/cha/mayan_chinese18.svg");
+  images[19] = loadImage("assets/cha/mayan_chinese19.svg");
+  images[20] = loadImage("assets/cha/mayan_chinese20.svg");
+  images[21] = loadImage("assets/cha/mayan_chinese21.svg");
   
   for (let i = 0; i < 19; i++) {
     //test
@@ -68,8 +68,8 @@ function preload() {
     //test
   }
   
-  sounds[3] = loadSound('sounds/七里香.mp3');
-  sounds[6] = loadSound('sounds/青花瓷.mp3');
+  sounds[3] = loadSound('assets/sounds/⛰️.mp3');
+  sounds[6] = loadSound('assets/sounds/✋.mp3');
   //sounds[2] = loadSound("gl.m4a");
   //sounds[3] = loadSound("World crazy.m4a");
   

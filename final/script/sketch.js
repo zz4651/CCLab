@@ -68,8 +68,8 @@ function preload() {
     //test
   }
   
-  sounds[3] = loadSound('sounds/七里香.mp3');
-  sounds[6] = loadSound('sounds/青花瓷.mp3');
+  sounds[3] = loadSound('assets/sounds/⛰️.mp3');
+  sounds[6] = loadSound('assets/sounds/✋.mp3');
   //sounds[2] = loadSound("gl.m4a");
   //sounds[3] = loadSound("World crazy.m4a");
   

@@ -17,7 +17,7 @@ let currentLevel = 0;
 let showCha = false;
 
 let sounds = [];
-let validSounds = [3,6];
+let validSounds = [3,6,17,22];
 
 let dragging = -1;
 let saveButton; 

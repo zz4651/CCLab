@@ -5,56 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ken Zhang</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
         }
         header {
-            background-color: #fff;
-            color: black;
-            padding: 15px;
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
             text-align: center;
+            font-size: 2em;
+            font-weight: bold;
         }
         nav {
             display: flex;
             justify-content: center;
-            background-color: #fff;
+            background-color: #222;
+            padding: 10px;
         }
         nav a {
-            color: black;
-            padding: 14px 20px;
+            color: #fff;
+            padding: 12px 20px;
             text-decoration: none;
-            text-align: center;
+            font-size: 1.2em;
+            text-transform: uppercase;
         }
         nav a:hover {
-            background-color: #fff;
-            color: black;
+            background-color: #444;
         }
         main {
-            padding: 20px;
+            padding: 40px 20px;
             text-align: center;
         }
+        main h2 {
+            font-size: 2.5em;
+            font-weight: lighter;
+            margin-bottom: 30px;
+        }
         footer {
-            background-color: #fff;
-            color: black;
+            background-color: #000;
+            color: #fff;
             text-align: center;
-            padding: 10px;
+            padding: 15px;
             position: fixed;
             width: 100%;
             bottom: 0;
+            font-size: 1em;
         }
-        img {
-            width: 200px;
-            height: auto;
-            margin-top: 20px;
-        }
-        form {
+        #p5-container {
+            width: 100%;
+            height: 400px;
             margin-top: 30px;
         }
-        label, input {
-            display: block;
-            margin: 10px 0;
+        nav a:first-child {
+            margin-left: 0;
+        }
+        nav a:last-child {
+            margin-right: 0;
         }
     </style>
     <script src="library/p5.js"></script>
@@ -62,31 +76,25 @@
     <script src="script/sketch.js"></script>
 </head>
 <body>
-    <!-- lets see the change! -->
+    <header>
+        Ken Zhang's IMA Coding Lab
+    </header>
 
-<header>
-    <h1>Ken Zhang's IMA Coding Lab</h1>
-</header>
+    <nav>
+        <a href="#1">Midwork</a>
+        <a href="#2">Finalwork</a>
+        <a href="#3">Firework</a>
+    </nav>
 
-<nav>
-    <a href="#1">Midwork</a>
-    <a href="#2">Finalwork</a>
-    <a href="#3">Firework</a>
-</nav>
+    <main>
+        <h2>Ken ZHANG 张知行</h2>
+        <div id="p5-container">
+            <!-- p5.js canvas will go here -->
+        </div>
+    </main>
 
-<main>
-    <h2>Ken ZHANG 张知行</h2>
-    <div id="p5-container">
-    </div>
-    
-    
-</main>
-
-<footer>
-    <p>Copyright &copy; Ken Zhang</p>
-</footer>
-
-
+    <footer>
+        <p>&copy; Ken Zhang</p>
+    </footer>
 </body>
 </html>
-

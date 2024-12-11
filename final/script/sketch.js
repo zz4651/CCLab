@@ -286,6 +286,7 @@ function mouseMoved() {
 // 保存当前画布为图片
 function saveImage() {
   saveCanvas('晚安，地球人...', 'png'); // 保存为 PNG 文件
+  delay(300);
   savedMessage = true; // 显示保存成功的提示
   setTimeout(() => savedMessage = false, 2000); // 2秒后隐藏提示
 }
@@ -443,7 +444,7 @@ function check(){
   }
   
   
-  if(currentLevel>5){
+  if(currentLevel==5){
     alert('~~~~~~~!!! 🎉');
   }
   

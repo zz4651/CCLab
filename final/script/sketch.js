@@ -351,8 +351,8 @@ function check(){
   
   if (currentLevel==3){ //第4关月
     let cha1 = 2;
-    let cha2 = 2;
-    if(areTheyMoved(cha1)){ //通关判断：if (cha1 在 cha2 上边；cha1不在innitial position,x轴有移动过； cha2 也不在； x轴差值小于100； y也是)
+    //let cha2 = 2;
+    if(positions[cha1].x !== cha1 % 10 * (picSizeX + padding) ){ //通关判断：if (cha1 在 cha2 上边；cha1不在innitial position,x轴有移动过； cha2 也不在； x轴差值小于100； y也是)
       alert("✅");
       console.log("104")
       currentLevel += 1;

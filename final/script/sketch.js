@@ -114,7 +114,7 @@ function setup() {
   b1.style('border', 'none'); // 去掉边框
   b1.style('border-radius', '10px'); // 圆角按钮
   b1.style('cursor', 'pointer'); // 设置鼠标样式为指针
-  b1.position( 120, height + 300);  // 设置按钮位置，避免覆盖图片
+  b1.position( 120, height + 340);  // 设置按钮位置，避免覆盖图片
   b1.mousePressed(challenge); // 点击按钮时调用保存函数
   
   
@@ -126,7 +126,7 @@ function setup() {
   confirmButton.style('border', 'none');
   confirmButton.style('border-radius', '10px');
   confirmButton.style('cursor', 'pointer');
-  confirmButton.position(340, height + 300);
+  confirmButton.position(340, height + 340);
   
   
   //
@@ -137,7 +137,7 @@ function setup() {
   confirmButton.style('border', 'none');
   confirmButton.style('border-radius', '10px');
   confirmButton.style('cursor', 'pointer');
-  confirmButton.position(340, height + 300);
+  confirmButton.position(340, height + 340);
   confirmButton.mousePressed(check);
   confirmButton.hide(); 
   

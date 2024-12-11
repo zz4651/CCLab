@@ -299,6 +299,9 @@ function challenge(){
   
   confirmButton.show(); // 显示确认按钮
   //console.log("challengeworked")
+
+  if(currentLevel>5){
+  alert('~~~~~~~!!! 🎉');
   
 }
 

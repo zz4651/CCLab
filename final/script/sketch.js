@@ -10,8 +10,8 @@ let firstYPadding = 45;
 let picNum = 24;
 let numEachRow = 12;
 
-let assembleDescriptions = ["⬆️","//","🌕","⛰️","/tzi/","☀️","✋","👦","🏺","🌲","/zaŋ/", "👁️","🧎","🍜","🧎","🧠", "🫀","🌧️","🧎","🦶","🚢","?","🔥"]; 
-let levelDescriptions = ["/zaŋ/+🌲", "🦶+🚢", "✋+👁️","🌕","🧎+🔥"];
+let assembleDescriptions = ["⬆️","//","🌕","⛰️","/tzi/","☀️","✋","👦","🏺","🌲","/zaŋ/", "👁️","🧎","🍜","🧎","🧠", "🫀","🌧️","🧎","🦶","🚢","/hliʔ/","🔥","🧍😮"]; 
+let levelDescriptions = ["/zaŋ/+🌲", "🦶+🚢", "✋+👁️","🌕","🧎+🔥","🧍😮+/hliʔ/"];
 let chaDescriptions = ["🛏️","⬅️","👀","🌛","🔥","🤨","◯ ➡️ ◯","🌍","⬆️","❄️","👐","👦","👀","⛰️","🌛","⬇️","👦","🤔","🤮","👫"]
 let currentLevel = 0;
 let showCha = false;
@@ -379,9 +379,9 @@ function check(){
     }
   }
   
-  if (currentLevel==5){ //第6关 still working 疑
-    let cha1 = 100;
-    let cha2 = 100;
+  if (currentLevel==5){ //第6关 疑
+    let cha1 = 23;
+    let cha2 = 21;
     if(positions[cha1].x < positions[cha2].x && areTheyMoved(cha1, cha2) && areTheyConnected(cha1, cha2)){ //通关判断：if (cha1 在 cha2 左边；cha1不在innitial position； cha2 也不在； x轴差值小于100； y也是)
       alert("✅");
       console.log("106")
@@ -443,7 +443,7 @@ function check(){
   }
   
   
-  if(currentLevel>4){
+  if(currentLevel>5){
     alert('~~~~~~~!!! 🎉');
   }
   

@@ -7,12 +7,12 @@ let picSizeY = 87.87;
 let firstXPadding = 70;
 let firstYPadding = 45;
 
-let picNum = 23;
+let picNum = 24;
 let numEachRow = 12;
 
 let assembleDescriptions = ["⬆️","//","🌕","⛰️","/tzi/","☀️","✋","👦","🏺","🌲","/zaŋ/", "👁️","🧎","🍜","🧎","🧠", "🫀","🌧️","🧎","🦶","🚢","?","🔥"]; 
 let levelDescriptions = ["/zaŋ/+🌲", "🦶+🚢", "✋+👁️","🌕","🧎+🔥"];
-let chaDescriptions = ["🛏️","⬅️","👀","🌛","🔥","🤨","● ➡️◯","🌍","⬆️","❄️","👐","👦","👀","⛰️","🌛","⬇️","👦","🤔","🤮","👫"]
+let chaDescriptions = ["🛏️","⬅️","👀","🌛","🔥","🤨","◯ ➡️ ◯","🌍","⬆️","❄️","👐","👦","👀","⛰️","🌛","⬇️","👦","🤔","🤮","👫"]
 let currentLevel = 0;
 let showCha = false;
 
@@ -62,6 +62,7 @@ function preload() {
   images[20] = loadImage("assets/cha/mayan_chinese20.svg");
   images[21] = loadImage("assets/cha/mayan_chinese21.svg");
   images[22] = loadImage("assets/cha/mayan_chinese22.svg");
+  images[23] = loadImage("assets/cha/mayan_chinese23.svg");
   
   for (let i = 0; i < 19; i++) {
     //test

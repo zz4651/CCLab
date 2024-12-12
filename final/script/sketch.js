@@ -62,7 +62,7 @@ function preload() {
   images[20] = loadImage("assets/cha/mayan_chinese20.svg");
   images[21] = loadImage("assets/cha/mayan_chinese21.svg");
   images[22] = loadImage("assets/cha/mayan_chinese22.svg");
-  images[23] = loadImage("assets/cha/mayan_chinese23.svg");
+  //images[23] = loadImage("assets/cha/mayan_chinese23.svg");
   
   for (let i = 0; i < 19; i++) {
     //test
@@ -299,9 +299,6 @@ function challenge(){
   
   confirmButton.show(); // 显示确认按钮
   //console.log("challengeworked")
-
-  if(currentLevel>5){
-  alert('~~~~~~~!!! 🎉');
   
 }
 
@@ -447,7 +444,7 @@ function check(){
   }
   
   
-  if(currentLevel==5){
+  if(currentLevel>5){
     alert('~~~~~~~!!! 🎉');
   }
   

@@ -11,7 +11,7 @@ let picNum = 24;
 let numEachRow = 12;
 
 let assembleDescriptions = ["⬆️","//","🌕","⛰️","/tzi/","☀️","✋","👦","🏺","🌲","/zaŋ/", "👁️","🧎","🍜","🧎","🧠", "🫀","🌧️","🧎","🦶","🚢","/hliʔ/","🔥","🧍😮"]; 
-let levelDescriptions = ["/zaŋ/+🌲", "🦶+🚢", "✋+👁️","🌕","🧎+🔥","🧍😮+/hliʔ/,"~~~~~~~!!! 🎉"];
+let levelDescriptions = ["/zaŋ/+🌲", "🦶+🚢", "✋+👁️","🌕","🧎+🔥","🧍😮+/hliʔ/"];
 let chaDescriptions = ["🛏️","⬅️","👀","🌛","🔥","🤨","◯ ➡️ ◯","🌍","⬆️","❄️","👐","👦","👀","⛰️","🌛","⬇️","👦","🤔","🤮","👫"]
 let currentLevel = 0;
 let showCha = false;
